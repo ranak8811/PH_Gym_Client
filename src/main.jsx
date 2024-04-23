@@ -12,34 +12,41 @@ import SignUp from './components/SignUp.jsx';
 import SignIn from './components/SignIn.jsx';
 import AuthProvider from './authprovider/AuthProvider.jsx';
 import Users from './components/Users.jsx';
+import Root from './components/Root.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
-    loader: () => fetch('http://localhost:5000/coffee')
+    element: <Root></Root>,
+    children: ([
+      {
+        path: '/',
+        element: <App></App>,
+        loader: () => fetch('https://coffee-store-server-lovat-kappa.vercel.app/coffee')
+      },
+      {
+        path: '/addCoffee',
+        element: <AddCoffee></AddCoffee>
+      },
+      {
+        path: '/update/:id',
+        element: <UpdateCoffee></UpdateCoffee>,
+        loader: ({ params }) => fetch(`https://coffee-store-server-lovat-kappa.vercel.app/coffee/${params.id}`)
+      },
+      {
+        path: '/signup',
+        element: <SignUp></SignUp>
+      },
+      {
+        path: '/signin',
+        element: <SignIn></SignIn>
+      },
+      {
+        path: '/users',
+        element: <Users></Users>,
+        loader: () => fetch('https://coffee-store-server-lovat-kappa.vercel.app/user')
+      }
+    ])
   },
-  {
-    path: '/addCoffee',
-    element: <AddCoffee></AddCoffee>
-  },
-  {
-    path: '/update/:id',
-    element: <UpdateCoffee></UpdateCoffee>,
-    loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`)
-  },
-  {
-    path: '/signup',
-    element: <SignUp></SignUp>
-  },
-  {
-    path: '/signin',
-    element: <SignIn></SignIn>
-  },
-  {
-    path: '/users',
-    element: <Users></Users>,
-    loader: () => fetch('http://localhost:5000/user')
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

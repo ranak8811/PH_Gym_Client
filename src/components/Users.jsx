@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const Users = () => {
     const loadedUsers = useLoaderData();
@@ -8,7 +7,7 @@ const Users = () => {
 
     const handleDelete = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://coffee-store-server-lovat-kappa.vercel.app/user/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
