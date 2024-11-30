@@ -19,7 +19,6 @@ const router = createBrowserRouter([
       {
         path: "/allSchedule",
         element: <Schedule></Schedule>,
-        loader: () => fetch("http://localhost:8800/schedule"),
       },
 
       {
@@ -29,8 +28,6 @@ const router = createBrowserRouter([
       {
         path: "/update/:id",
         element: <UpdateSchedule></UpdateSchedule>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:8800/schedule/${params.id}`),
       },
     ],
   },

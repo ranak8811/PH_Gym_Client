@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "react-clock/dist/Clock.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLoaderData, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 const formatTime12Hour = (date) => {
   let hours = date.getHours();
   const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -16,40 +14,7 @@ const formatTime12Hour = (date) => {
 };
 
 const UpdateSchedule = () => {
-  const data = useLoaderData();
-  const { id } = useParams();
-  const [startDate, setStartDate] = useState(data?.formattedDate);
-  const [selectedTime, setSelectedTime] = useState(data?.formatHour);
-  const [scheduleData, setScheduleData] = useState(data);
-
-  const [title, setTitle] = useState(data?.title);
-  const [day, setDay] = useState(data?.day);
-
-  const handleTimeChange = (time) => {
-    setSelectedTime(time);
-  };
-  const handleUpdateSchedule = (e) => {
-    e.preventDefault();
-
-    const updateData = {
-      title,
-      day,
-      formattedDate: startDate,
-    };
-    fetch(`http://localhost:8800/schedule/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        Swal.fire("data updateed");
-      })
-      .catch((error) => console.error("Error updating status:", error));
-  };
-
+  const handleUpdateSchedule = () => {};
   return (
     <div>
       <div className="bg-[#F4F3F0] lg:p-24">
@@ -63,8 +28,6 @@ const UpdateSchedule = () => {
               <input
                 type="text"
                 name="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
                 className="input input-bordered"
                 required
               />
@@ -73,12 +36,7 @@ const UpdateSchedule = () => {
               <label className="label font-bold">
                 <span className="label-text">Day</span>
               </label>
-              <DatePicker
-                className="input input-bordered w-full"
-                value={startDate}
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-              />
+              <DatePicker className="input input-bordered w-full" />
             </div>
           </div>
           <div className="flex gap-6 ">
@@ -87,13 +45,7 @@ const UpdateSchedule = () => {
                 <span className="label-text font-bold">Day</span>
               </label>
 
-              <select
-                value={day}
-                className="input input-bordered "
-                name="day"
-                id="day"
-                onChange={(e) => setDay(e.target.value)}
-              >
+              <select className="input input-bordered " name="day" id="day">
                 <option value="sunday">Sunday</option>
                 <option value="monday">Monday</option>
                 <option value="tuesday">Tuesday</option>
@@ -111,8 +63,6 @@ const UpdateSchedule = () => {
               <DatePicker
                 className="input input-bordered w-full"
                 readOnly
-                value={selectedTime}
-                onChange={handleTimeChange}
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={15}
