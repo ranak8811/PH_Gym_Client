@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../layout/root/Home.jsx";
 import Root from "../layout/root/Root.jsx";
-import AddCoffee from "../pages/addCoffe/AddCoffee.jsx";
-import AllCoffee from "../pages/allCoffe/AllCoffee.jsx";
+import Schedule from "../pages/Schedule/Schedule.jsx";
+import AddSchedule from "../pages/addSchedule/AddSchedules.jsx";
 import SignIn from "../pages/signin/SignIn.jsx";
 import SignUp from "../pages/signup/SignUp.jsx";
-import UpdateCoffee from "../pages/updateCoffe/UpdateCoffee.jsx";
-import Users from "../pages/users/Users.jsx";
+import UpdateSchedule from "../pages/updateSchedule/UpdateSchedule.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,24 +17,17 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/coffee",
-        element: <AllCoffee></AllCoffee>,
+        path: "/allSchedule",
+        element: <Schedule></Schedule>,
       },
+
       {
-        path: "/addCoffee",
-        element: <AddCoffee></AddCoffee>,
-      },
-      {
-        path: "/coffee/:id",
-        element: <UpdateCoffee></UpdateCoffee>,
+        path: "/addSchedule",
+        element: <AddSchedule></AddSchedule>,
       },
       {
         path: "/update/:id",
-        element: <UpdateCoffee></UpdateCoffee>,
-      },
-      {
-        path: "/users",
-        element: <Users></Users>,
+        element: <UpdateSchedule></UpdateSchedule>,
       },
     ],
   },
@@ -44,7 +36,7 @@ const router = createBrowserRouter([
     element: <SignIn></SignIn>,
   },
   {
-    path: "signup",
+    path: "/signup",
     element: <SignUp></SignUp>,
   },
 ]);

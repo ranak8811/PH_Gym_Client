@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../authprovider/AuthProvider";
 
@@ -30,7 +31,7 @@ const SignUp = () => {
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Register now!</h1>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 px-4 py-6">
           <form onSubmit={handleSignUp} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -78,6 +79,15 @@ const SignUp = () => {
               <button className="btn bg-pink-500 text-white">Sign Up</button>
             </div>
           </form>
+
+          <div className="text-right">
+            <Link
+              className="text-red-500 border border-b-4 border-b-red-500"
+              to="/signIn"
+            >
+              signin
+            </Link>
+          </div>
         </div>
       </div>
     </div>
