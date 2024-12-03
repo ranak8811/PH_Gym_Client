@@ -1,4 +1,22 @@
+import { useLoaderData } from "react-router-dom";
+import ScheduleTable from "../../components/SchedleTable";
+import { useEffect, useState } from "react";
+
 const Schedule = () => {
+  const data = useLoaderData();
+  const [search, setSearch] = useState("");
+  const [scheduleData, setScheduleData] = useState(data);
+  // console.log(search);
+
+  useEffect(() => {
+    fetch(`https://gym-server-phi.vercel.app/schedule?searchParams=${search}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        setScheduleData(data);
+      });
+  }, [search]);
+
   return (
     <>
       <div className="w-[400px] mx-auto mb-4">
@@ -25,7 +43,21 @@ const Schedule = () => {
                 <th>Auction</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {scheduleData.length === 0 ? (
+                <p>No data found</p>
+              ) : (
+                scheduleData.map((schedule, index) => (
+                  <ScheduleTable
+                    key={schedule?._id}
+                    idx={index}
+                    schedule={schedule}
+                    scheduleData={scheduleData}
+                    setScheduleData={setScheduleData}
+                  ></ScheduleTable>
+                ))
+              )}
+            </tbody>
           </table>
         </div>
       </div>

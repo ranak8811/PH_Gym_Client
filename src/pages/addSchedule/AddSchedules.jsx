@@ -2,6 +2,7 @@ import { useState } from "react";
 import "react-clock/dist/Clock.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 
 const formatTime12Hour = (date) => {
   let hours = date.getHours();
@@ -27,7 +28,38 @@ const AddCoffee = () => {
     const formattedDate = startDate.toLocaleDateString("en-CA");
     const title = form.title.value;
     const day = form.day.value;
+
+    // console.log(formatHour, formattedDate, title, day);
+
+    const data = {
+      title: title,
+      day: day,
+      date: formattedDate,
+      hour: formatHour,
+      isCompleted: false,
+    };
+
+    // console.log(data);
+
+    fetch("https://gym-server-phi.vercel.app/schedule", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data.insertedId) {
+          Swal.fire("Data created successfully");
+        }
+      });
   };
+
+  // console.log(startDate);
+  // console.log(selectedTime);
 
   return (
     <div>
